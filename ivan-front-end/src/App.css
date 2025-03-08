@@ -1,0 +1,95 @@
+.App {
+  text-align: center;
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #282c34;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.div-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.div-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.half-width {
+  min-width: 40%;
+}
+
+.task-list {
+  min-height: 25vh;
+  max-height: 40vh;
+  overflow: scroll;
+}
+
+.task-list-header {
+  font-weight: bolder;
+  margin: 20px;
+}
+
+.task-header {
+  color: lightblue;
+  margin: 20px;
+  border: 1px lightblue solid;
+}
+
+.task-list-row {
+  justify-content: space-evenly;
+}
+
+.input-card {
+  margin: 25px;
+  align-items: center;
+  min-height: 15vh;
+  border: 2px lightblue solid;
+  border-radius: 15px;
+}
+
+.card-header {
+  font-weight: 800;
+  font-size: large;
+}
+
+.my-10 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.error-div {
+  background-color: coral;
+  color: white;
+  text-align: center;
+}

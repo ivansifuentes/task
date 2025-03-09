@@ -6,6 +6,7 @@ import { TaskSchedule } from './TaskScheduler';
 
 function ScheduledTasks() {
     const [scheduled, setScheduled] = useState<Array<TaskSchedule>>([]);
+    const [message, setMessage] = useState<string | undefined>();
 
     const fetchData = async () => {
         const res = await axios.get(API_URL + '/fetch-scheduled-tasks');
@@ -28,47 +29,62 @@ function ScheduledTasks() {
       }, []);
 
     const deleteTask = async (taskId: string) => {
+        setMessage(undefined);
         try {
             const res = await axios.post(API_URL + '/delete-task', { taskId });
-            console.log(res);
+            if (res.status === 200)
+                setMessage('Task deleted successfully!');
         } catch (e: any) {
         }
     }
 
     return (
-        <div>
+        <div className='full-width task-list-section'>
+            {message && (
+                <div className='message-div'>
+                    {message}
+                </div>
+            )}
             <div className='task-list-header'>
                 Scheduled Tasks
             </div>
-            <div className='div-row task-list-row task-header'>
-                <div>
-                    Next at
-                </div>
-                <div>
-                    Schedule
-                </div>
-                <div>                        
-                    Action
-                </div>
-            </div>
-            <div className='task-list div-col'>
-                {scheduled.map((st) => (
-                    <div className='div-row task-list-row'>
-                        <div>
-                            {new Date(st.at).toLocaleString()}
-                        </div>
-                        <div>
-                            {st.schedule}
-                        </div>
-                        <div>                        
-                            <input
-                                type="button"
-                                onClick={() => deleteTask(st.taskId)}
-                                value="Delete"
-                            />
-                        </div>
+            <div className='div-col scheduled-task-list'>
+                <div className='div-row task-list-row task-header'>
+                <div className='scheduled-task-column'>
+                        Type
                     </div>
-                ))}
+                    <div className='scheduled-task-column'>
+                        Next at
+                    </div>
+                    <div className='scheduled-task-column'>
+                        Schedule
+                    </div>
+                    <div className='scheduled-task-column'>                        
+                        Action
+                    </div>
+                </div>
+                <div className='task-list div-col'>
+                    {scheduled.map((st, i) => (
+                        <div key={`${st.taskId}-${i}`} className='div-row task-list-row'>
+                            <div className='scheduled-task-column'>
+                                {st.taskType}
+                            </div>
+                            <div className='scheduled-task-column'>
+                                {new Date(st.at).toLocaleString()}
+                            </div>
+                            <div className='scheduled-task-column'>
+                                {st.schedule}
+                            </div>
+                            <div className='scheduled-task-column'>                        
+                                <input
+                                    type="button"
+                                    onClick={() => deleteTask(st.taskId)}
+                                    value="Delete"
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

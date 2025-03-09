@@ -5,12 +5,11 @@ import { API_URL } from '../constants';
 function TriggerCron() {
     const fetchData = async () => {
         const res = await axios.get(API_URL + '/scheduler-cron');
-        console.log(res);
     };
 
     useEffect(() => {
         fetchData();
-        const intervalId = setInterval(fetchData, 23000);
+        const intervalId = setInterval(fetchData, 5000);
     
         return () => clearInterval(intervalId);
       }, []);

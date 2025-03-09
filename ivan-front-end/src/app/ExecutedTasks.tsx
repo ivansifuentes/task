@@ -28,41 +28,43 @@ function ExecutedTasks() {
       }, []);
 
     return (
-        <div>
+        <div className='full-width task-list-section'>
             <div className='task-list-header'>
                 Executed Tasks
             </div>
-            <div className='div-row task-list-row task-header'>
-                <div>
-                    Scheduled at
-                </div>
-                <div>
-                    Schedule
-                </div>
-                <div>
-                    Executed at
-                </div>
-                <div>                        
-                    Type
-                </div>
-            </div>
-            <div className='task-list div-col'>
-                {executed.map((st) => (
-                    <div className='div-row task-list-row'>
-                        <div>
-                            {new Date(st.at).toLocaleString()}
-                        </div>
-                        <div>
-                            {st.schedule}
-                        </div>
-                        <div>
-                            {new Date(st.executedAt!).toLocaleString()}
-                        </div>
-                        <div>
-                            {st.taskType}
-                        </div>
+            <div className='div-col executed-task-list'>
+                <div className='div-row task-list-row task-header'>
+                    <div className='executed-task-column'>
+                        Scheduled at
                     </div>
-                ))}
+                    <div className='executed-task-column'>
+                        Schedule
+                    </div>
+                    <div className='executed-task-column'>
+                        Executed at
+                    </div>
+                    <div className='executed-task-column'>                        
+                        Type
+                    </div>
+                </div>
+                <div className='task-list div-col'>
+                    {executed.map((st, i) => (
+                        <div key={`${st.taskId}-${i}`} className='div-row task-list-row'>
+                            <div className='executed-task-column'>
+                                {new Date(st.at).toLocaleString()}
+                            </div>
+                            <div className='executed-task-column'>
+                                {st.schedule}
+                            </div>
+                            <div className='executed-task-column'>
+                                {new Date(st.executedAt!).toLocaleString()}
+                            </div>
+                            <div className='executed-task-column'>
+                                {st.taskType}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

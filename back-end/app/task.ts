@@ -59,12 +59,23 @@ export const addOneTimeTask = async (req: Request, res: Response) => {
           'invalid request'
         ]);
     }
+    let date;
+    try {
+        date = new Date(oneTime);
+    } catch (e: any) {
+        return res.status(400).json([
+            'invalid request'
+          ]);
+    }
+    if (isNaN(date.getTime()))
+        return res.status(400).json([
+            'invalid request'
+          ]);
 
-    const date = new Date(oneTime);
-    const nextTime = date.getTime();
+    const nextTime = date!.getTime();
     const taskSchedule: TaskSchedule = {
         taskId: randomUUID(),
-        at: date.toISOString(),
+        at: date!.toISOString(),
         schedule: '',
         taskType: TaskType.ONE_TIME,
     }

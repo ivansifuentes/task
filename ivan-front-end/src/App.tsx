@@ -10,7 +10,7 @@ function App() {
       <div>
         <TaskScheduler />
       </div>
-      <div className='half-width'>
+      <div>
         <ScheduledTasks />
         <ExecutedTasks />
       </div>

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import parser from 'cron-parser';
 
 // Quick & Dirty pseudo cron job that will be executed every X seconds
-// takes care of executing the scheduled tasks
+// takes care of executing the scheduled tasks & reschudeling the recurrent ones
 
 import { REDIS_EXECUTED_LIST, REDIS_SCHEDULED_TASK, TZ } from "./utils/constants";
 import redis from "./utils/redis";
@@ -14,16 +14,14 @@ export const schedulerCron = async (_: Request, res: Response) => {
     const date = new Date();
     const epochTimeMilliseconds = date.getTime();
     const due = await redis.zRange(REDIS_SCHEDULED_TASK, 0, epochTimeMilliseconds, { BY: "SCORE" });
-    // console.log({due});
     const min = await redis.zPopMinCount(REDIS_SCHEDULED_TASK, due.length);
-    // console.log({min});
     // Every task gets executed, and if recurrent set next execution time
     for (const task of min) {
         try {
             const parsed = JSON.parse(task.value);
             await redis.rPush(REDIS_EXECUTED_LIST, JSON.stringify({
                 ...parsed,
-                executedAt: date.toISOString(),
+                executedAt: new Date().toISOString(),
             }));
             if (parsed.taskType !== TaskType.RECURRENT)
                 continue;
@@ -43,7 +41,6 @@ export const schedulerCron = async (_: Request, res: Response) => {
 
         }
     }
-
 
     return res.status(200).json(min);
 }

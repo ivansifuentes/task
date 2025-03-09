@@ -45,8 +45,47 @@
   flex-direction: column;
 }
 
+.task-list-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  border-top: 1px solid lightgray;
+  margin-bottom: 30px;
+}
+
 .half-width {
-  min-width: 40%;
+  min-width: 45%;
+  max-width: 45%;
+}
+
+.scheduled-task-list {
+  min-width: 65%;
+  max-width: 65%;
+}
+
+.executed-task-list {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.scheduled-task-column {
+  width: 25% !important;
+  overflow: hidden;
+}
+
+.executed-task-column {
+  width: 25% !important;
+  overflow: hidden;
+}
+
+.full-width {
+  max-width: 75vw;
+}
+
+.half-width {
+  min-width: 45%;
+  max-width: 45%;
 }
 
 .task-list {
@@ -89,7 +128,15 @@
 }
 
 .error-div {
+  margin: 25px;
   background-color: coral;
+  color: white;
+  text-align: center;
+}
+
+.message-div {
+  margin: 25px;
+  background-color: darkolivegreen;
   color: white;
   text-align: center;
 }
